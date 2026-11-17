@@ -1,0 +1,65 @@
+# 老 WordPress 站遗留 URL 的 301 重定向（GSC 404 报告修复）
+# Cloudflare Pages 规则：/旧路径 /新路径 301
+
+/home/  /  301
+/home  /  301
+
+/stripe-connect-vs-paypal  /stripe-connect-alternatives/  301
+/stripe-connect-vs-paypal/  /stripe-connect-alternatives/  301
+
+/payment-gateway-comparison/  /stripe-alternatives/  301
+/payment-gateway-comparison  /stripe-alternatives/  301
+
+/provider-deep-dives/  /reviews/paddle/  301
+/provider-deep-dives  /reviews/paddle/  301
+
+/reviews/  /reviews/paddle/  301
+
+# 旧 WordPress SEO 插件遗留的 sitemap 地址
+/page-sitemap.xml  /sitemap-index.xml  301
+
+# 第四批独立页合并进 switch-cost 指南页(第五批)
+/marketplace-payment-migration-cost  /payment-gateway-switch-cost/  301
+/marketplace-payment-migration-cost/  /payment-gateway-switch-cost/  301
+
+# slug 缩短(工具页)
+/marketplace-payment-cost-calculator  /payment-cost-calculator/  301
+/marketplace-payment-cost-calculator/  /payment-cost-calculator/  301
+/marketplace-payment-gateway-switch-cost  /payment-gateway-switch-cost/  301
+/marketplace-payment-gateway-switch-cost/  /payment-gateway-switch-cost/  301
+
+# ========================================
+# LumScope Affiliate Redirect Rules
+# ========================================
+# ⚠️ TODO（正式上线前必须处理）：
+# - 当前所有 /go/ 链接暂时指向各平台官网首页，仅为临时占位
+# - 拿到真实联盟追踪链接后，只改本文件 + src/data/affiliates.ts
+# - 文章里的 /go/xxx/ 路径不需要动
+# - 使用 302（临时重定向），不要改成 301，方便后续随时替换
+# ========================================
+
+# --- Mercury ---
+/go/mercury    https://mercury.com    302
+/go/mercury/   https://mercury.com    302
+
+# --- Doola ---
+/go/doola      https://doola.com      302
+/go/doola/     https://doola.com      302
+
+# --- Firstbase（官网是 .io，不是 .com）---
+/go/firstbase    https://firstbase.io   302
+/go/firstbase/   https://firstbase.io   302
+
+# ========================================
+# 以后替换联盟链接的操作清单
+# ========================================
+# 1. 去 Mercury / Doola / Firstbase 联盟后台获取真实追踪链接
+# 2. 修改本文件中对应的目标 URL
+# 3. 修改 src/data/affiliates.ts 中对应 URL（保持两处一致）
+# 4. 本地验证：npm run build && npx wrangler pages dev dist，
+#    访问 /go/mercury/ 确认跳转
+#    （注意：npm run dev 下 _redirects 不生效）
+# 5. 部署后验证：curl -I https://lumscope.com/go/mercury/
+#    确认返回 302 且 location 是新的联盟链接
+# 6. 文章正文不需要改（/go/xxx/ 路径保持不变）
+# ========================================
